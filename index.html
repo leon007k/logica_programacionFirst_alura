@@ -9,7 +9,31 @@
 </head>
 
 <body>
+  <h1 class="header__message">Programa - Calcular puntos de un equipo de futbol</h1>
 
+  <script type="text/javascript">
+    function breakLine() {
+      document.createElement("br");
+      document.createElement("br");
+      document.createElement("br");
+    }
+
+    function print(message) {
+      breakLine();
+      let text = document.createElement("p"),
+        body = document.querySelector("body");
+      text.innerHTML = message;
+      body.appendChild(text);
+      breakLine();
+    }
+
+    let winners = parseInt(prompt("Ingrese la cantidad de victorias")),
+      tie = parseInt(prompt("Ingrese cantidad de empates"));
+
+    let totalPoints = winners * 3 + tie;
+
+    print("El total de puntos del equipo es: " + totalPoints);
+  </script>
 </body>
 
 </html>
