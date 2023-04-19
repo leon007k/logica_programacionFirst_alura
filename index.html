@@ -9,10 +9,13 @@
 </head>
 
 <body>
-  <h1 class="header__message">Programa - Calcular puntos de un equipo de futbol</h1>
+  <!-- <h1 class="header__message">Programa - Calcular puntos de un equipo de futbol</h1> -->
+
+  <!--Practica con canvas-->
+  <canvas width="600" height="400"></canvas>
 
   <script type="text/javascript">
-    function breakLine() {
+    /* function breakLine() {
       document.createElement("br");
       document.createElement("br");
       document.createElement("br");
@@ -32,7 +35,43 @@
 
     let totalPoints = winners * 3 + tie;
 
-    print("El total de puntos del equipo es: " + totalPoints);
+    print("El total de puntos del equipo es: " + totalPoints); */
+
+    // Practica uso de Canvas
+    let screen = document.querySelector("canvas");
+    let brush = screen.getContext("2d");
+
+    // propiedad
+    brush.fillStyle = "rgb(244,245,240)";
+
+    //funcion - Creamos un rectangulo
+    brush.fillRect(0, 0, 600, 400);
+
+    // dividimos el rectangulo principal
+    brush.fillStyle = "rgb(0,140,69)";
+    brush.fillRect(0, 0, 200, 400);
+
+    brush.fillStyle = "rgb(205,33,42)";
+    brush.fillRect(400, 0, 600, 400);
+
+    // generando un triangulo en la bandera
+    brush.fillStyle = "#F9F871";
+    brush.beginPath(); //iniciamos una nueva ruta donde comienza el pincel
+    brush.moveTo(300, 200); // mueve la ruta al punto especificado en el lienzo, sin crear una línea
+    brush.lineTo(500, 400);
+    brush.lineTo(100, 400);
+    brush.fill();
+
+    brush.fillStyle = "#9BDE7E";
+    brush.beginPath(); //iniciamos una nueva ruta donde comienza el pincel
+
+    // arc(x,y,radio,angulo inicial,angulo final)
+    brush.arc(300, 200, 50, 0, 2 * 3.14);
+    brush.fill();
+
+
+
+
   </script>
 </body>
 

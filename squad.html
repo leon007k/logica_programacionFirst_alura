@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Escuadra</title>
+</head>
+
+<body>
+  <canvas width="600" height="400"></canvas>
+  <script type="text/javascript">
+    let board = document.querySelector("canvas"),
+      brush = board.getContext("2d"),
+      dark = "#1a1b1c",
+      orange = "#FFB642";
+
+    // background 
+    /*     brush.fillStyle = "#ddd";
+        brush.fillRect(0, 0, 600, 400); */
+
+    // first triangle
+    brush.fillStyle = dark;
+    brush.strokeStyle = orange;
+    brush.beginPath();
+    brush.moveTo(50, 50);
+    // first line
+    brush.lineTo(50, 400);
+    // second line
+    brush.lineTo(400, 400);
+    brush.stroke();
+    brush.fill();
+
+    //second triangle
+    brush.fillStyle = "#fff";
+    brush.strokeStyle = orange;
+    brush.beginPath();
+    brush.moveTo(100, 175);
+    // first line
+    brush.lineTo(100, 350);
+    // second line
+    brush.lineTo(275, 350);
+    brush.stroke();
+    brush.fill();
+
+  </script>
+</body>
+
+</html>

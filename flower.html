@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Flor</title>
+</head>
+
+<body>
+  <canvas width="600" height="400"></canvas>
+  <script type="text/javascript">
+    let board = document.querySelector("canvas"),
+      brush = board.getContext("2d");
+    brush.fillStyle = "lightgray";
+    brush.fillRect(0, 0, 600, 400);
+
+    function drawCircle(x, y, radio, color) {
+      brush.fillStyle = color;
+      brush.beginPath();
+      brush.arc(x, y, radio, 0, 2 * 3.14);
+      brush.fill();
+    }
+
+    function increment(point, valueIncrement) {
+      return parseInt(point) + parseInt(valueIncrement);
+    }
+
+    function decrement(point, valueDecrement) {
+      return parseInt(point) - parseInt(valueDecrement);
+    }
+
+    function drawFlower(pointX, pointY, distance) {
+      const circles = [
+        { x: decrement(pointX, distance), y: pointY, color: "orange" },
+        { x: pointX, y: pointY, color: "red" },
+        { x: increment(pointX, distance), y: pointY, color: "black" },
+        { x: pointX, y: decrement(pointY, distance), color: "yellow" },
+        { x: pointX, y: increment(pointY, distance), color: "blue" },
+      ];
+
+      for (const element of circles) {
+        drawCircle(element.x, element.y, 25, element.color);
+      }
+    }
+
+    drawFlower(300, 200, 50);
+
+  </script>
+</body>
+
+</html>
