@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Paint</title>
+</head>
+
+<body>
+  <canvas width="600" height="400"></canvas>
+
+  <script text="text/javascript">
+    let board = document.querySelector("canvas"),
+      brush = board.getContext("2d");
+
+    brush.fillStyle = "#d3d3d3";
+    brush.fillRect(0, 0, 600, 400);
+
+    function drawCircunference(pointX, pointY, radio) {
+      brush.fillStyle = "#1a1b1c";
+      brush.beginPath();
+      brush.arc(pointX, pointY, radio, 0, 2 * Math.PI);
+      brush.fill();
+    }
+
+    function cleanBoard() {
+      brush.clearRect(0, 0, 600, 400);
+    }
+
+    let x = 0,
+      interval = 1;
+    function updateBoard() {
+      cleanBoard();
+      if (x > 600) {
+        interval = -1;
+      } else if (x < 0) {
+        interval = 1;
+      }
+      drawCircunference(x, 20, 10);
+      x += interval;
+    }
+
+    setInterval(updateBoard, 10);
+
+  </script>
+</body>
+
+</html>
