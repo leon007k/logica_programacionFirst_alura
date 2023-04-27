@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Paint with mouse</title>
+</head>
+
+<body>
+  <canvas width="600" height="400"></canvas>
+  <script text="text/javascript">
+    let board = document.querySelector('canvas'),
+      brush = board.getContext('2d');
+
+    brush.fillStyle = '#ddd';
+    brush.fillRect(0, 0, 600, 400);
+
+    let canIDraw = false,
+      fillStyleColor = 'blue';
+
+    function drawCircunference(event) {
+      let x = event.pageX - board.offsetLeft,
+        y = event.pageY - board.offsetTop,
+        restrictedArea = verifyRestrictedArea(x, y);
+      if (canIDraw && restrictedArea) {
+        console.log(x, y);
+        brush.fillStyle = fillStyleColor;
+        brush.beginPath();
+        brush.arc(x, y, 5, 0, 2 * 3.14);
+        brush.fill();
+      }
+    }
+
+    board.onmousemove = drawCircunference;
+
+    function enabledDraw() {
+      canIDraw = true;
+      return canIDraw;
+    }
+
+    function verifyRestrictedArea(pointX, pointY) {
+      let restrictedArea = (pointX >= 0 && pointX < 155) &&
+        ((pointY >= 0 || pointY < 0) && pointY < 55) ? false : true;
+      return restrictedArea;
+    }
+
+    function disabledDraw() {
+      canIDraw = false;
+      return canIDraw;
+    }
+
+    board.onmousedown = enabledDraw;
+    board.onmouseup = disabledDraw;
+
+    function createPaletteColors() {
+      brush.fillStyle = 'blue';
+      brush.fillRect(0, 0, 50, 50);
+
+      brush.fillStyle = 'red';
+      brush.fillRect(50, 0, 50, 50);
+
+      brush.fillStyle = 'green';
+      brush.fillRect(100, 0, 50, 50);
+    }
+
+    function chooseFillStyleColor(event) {
+      let pointX = event.pageX - board.offsetLeft,
+        pointY = event.pageY - board.offsetTop,
+        newFillStyleColor;
+      const validAreaPointY = ((pointY >= 0 || pointY < 0) && pointY <= 50) ? true : false;
+
+      debugger
+      switch (true) {
+        case pointX >= 0 && pointX <= 50:
+          newFillStyleColor = "blue";
+          break;
+        case pointX > 50 && pointX <= 100:
+          newFillStyleColor = "red";
+          break;
+        case pointX > 100 && pointX <= 150:
+          newFillStyleColor = "green";
+          break;
+      }
+
+      if (validAreaPointY && (newFillStyleColor !== null)) {
+        fillStyleColor = newFillStyleColor;
+        return fillStyleColor;
+      }
+    }
+
+    createPaletteColors();
+    board.onclick = chooseFillStyleColor;
+
+  </script>
+</body>
+
+</html>
