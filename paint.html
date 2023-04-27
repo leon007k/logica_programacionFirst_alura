@@ -13,13 +13,17 @@
 
   <script text="text/javascript">
     let board = document.querySelector("canvas"),
-      brush = board.getContext("2d");
+      brush = board.getContext("2d"),
+      randomX, randomY,
+      x = 0,
+      interval = 1,
+      radio = 10;
 
     brush.fillStyle = "#d3d3d3";
     brush.fillRect(0, 0, 600, 400);
 
-    function drawCircunference(pointX, pointY, radio) {
-      brush.fillStyle = "#1a1b1c";
+    function drawCircunference(pointX, pointY, radio, color) {
+      brush.fillStyle = color;
       brush.beginPath();
       brush.arc(pointX, pointY, radio, 0, 2 * Math.PI);
       brush.fill();
@@ -29,20 +33,53 @@
       brush.clearRect(0, 0, 600, 400);
     }
 
-    let x = 0,
-      interval = 1;
-    function updateBoard() {
+    function updateAnimationBoard() {
       cleanBoard();
       if (x > 600) {
         interval = -1;
       } else if (x < 0) {
         interval = 1;
       }
-      drawCircunference(x, 20, 10);
+      drawCircunference(x, 20, 10, "blue");
       x += interval;
     }
 
-    setInterval(updateBoard, 10);
+    //setInterval(updateAnimationBoard, 10);
+
+    function drawObject(pointX, pointY) {
+      drawCircunference(pointX, pointY, radio + 20, "red");
+      drawCircunference(pointX, pointY, radio + 10, "white");
+      drawCircunference(pointX, pointY, radio, "red");
+    }
+
+    function overwhelmPosition(maxPointX, maxPointY) {
+      randomX = Math.floor(Math.random() * maxPointX);
+      randomY = Math.floor(Math.random() * maxPointY);
+      let arrayPositions = [randomX, randomY];
+
+      return arrayPositions;
+    }
+
+    function updateBoardRandomPosition() {
+      cleanBoard();
+      let arrayPositions = overwhelmPosition(600, 400);
+      drawObject(arrayPositions[0], arrayPositions[1]);
+      x++;
+    }
+
+    setInterval(updateBoardRandomPosition, 1000);
+
+    function shootObject(event) {
+      let pointX = event.pageX - board.offsetLeft,
+        pointY = event.pageY - board.offsetTop;
+
+      if ((pointX < randomX + radio) && (pointX > randomX - radio) &&
+        (pointY < randomY + radio) && (pointY > randomY - radio)) {
+        alert("A logrado dar en el centro");
+      }
+    }
+
+    board.onclick = shootObject;
 
   </script>
 </body>
